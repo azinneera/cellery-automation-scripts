@@ -15,32 +15,15 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-set -e
-
-source_root=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-samples_root=$source_root/samples
-docker_hub_org="wso2-cellery"
-date=`date +%Y-%m-%d`
-time=`date +%H:%M:%S`
-log_prefix="[$date $time]"
-
-setyp_type=$1
 
 log_info() {
     echo "${log_prefix}[INFO]" $1
-}   
+}
 
-cd $source_root
-if [ $setyp_type = "basic" ]; then
-	log_info "Installing Cellery local basic setup..."
-	cellery setup create local -y
-else
-    log_info "Installing Cellery local complete setup..."
-	cellery setup create local --complete -y
-fi
+#source ../undeploy-samples.sh
 
-log_info "Successfully installed cellery local $setyp_type setup."
+log_info "Destroying local setup..."
+cellery setup cleanup local
 
-#source ../deploy-samples.sh
-
+log_info "Cleanup complete."
 

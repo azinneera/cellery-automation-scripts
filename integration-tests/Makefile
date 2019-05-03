@@ -16,6 +16,8 @@
 
 PROJECT_ROOT := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
+run-local-basic: setup-local-basic test-local-basic cleanup-local-basic
+run-local-complete: setup-local-complete test-local-complete cleanup-local-complete
 
 .EXPORT_ALL_VARIABLES:
     CELLERY_AUTOMATION_TESTS_ROOT = $(PROJECT_ROOT)
@@ -26,9 +28,14 @@ setup-local-basic:
 	bash setup.sh basic
 
 .PHONY: test-local-basic
-test-local-basic: setup-local-basic
+test-local-basic:
 	cd $(PROJECT_ROOT)/test-cases/scenario-tests/; \
 	mvn clean install -Dsuite=src/test/resources/basic.xml
+
+.PHONY: cleanup-local-basic
+cleanup-local-basic:
+	cd $(PROJECT_ROOT)/setups/local-setup; \
+	bash cleanup.sh
 
 .PHONY: setup-local-complete
 setup-local-complete:
@@ -36,9 +43,11 @@ setup-local-complete:
 	bash setup.sh complete
 
 .PHONY: test-local-complete
-test-local-complete: setup-local-complete
-	cd $(PROJECT_ROOT)/test-cases/test-case-01; \
-	bash test.sh
-	cd $(PROJECT_ROOT)/test-cases/test-case-02; \
-	bash test.sh
+test-local-complete:
+	cd $(PROJECT_ROOT)/test-cases/scenario-tests/; \
+	mvn clean install -Dsuite=src/test/resources/basic.xml
 
+.PHONY: cleanup-local-complete
+cleanup-local-complete:
+	cd $(PROJECT_ROOT)/setups/local-setup; \
+	bash cleanup.sh
