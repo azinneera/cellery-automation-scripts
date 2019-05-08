@@ -18,3 +18,19 @@
 
 # Creates a k8s cluster with docker-desktop for installing Cellery
 
+set -e
+
+date=`date +%Y-%m-%d`
+time=`date +%H:%M:%S`
+log_prefix="[$date $time]"
+
+log_info() {
+    echo "${log_prefix}[INFO]" $1
+}  
+
+log_info "Staring docker-desktop with a k8s cluster..."
+open /Applications/Docker.app
+kubectl config set-context docker-desktop
+
+
+

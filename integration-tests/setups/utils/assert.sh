@@ -16,13 +16,22 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-# Destroys the created setup
-
-set -e
-
-log_info() {
-    echo "${log_prefix}[INFO]" $1
-}  
-
-log_info "Cleaning up existing cellery setup..."
-cellery setup cleanup existing 
+assert () {              #  If condition false, exit from script with error message.
+                         
+  	E_PARAM_ERR=98
+  	E_ASSERT_FAILED=99
+ 
+  	if [ -z "$2" ]          
+  	then
+    	return $E_PARAM_ERR   # Not enough parameters passed.
+  	fi
+ 
+  	lineno=$2
+ 
+  	if [ ! $1 ] 
+  	then
+    	echo "Assertion failed:  \"$1\""
+    	echo "File \"$0\", line $lineno"
+    exit $E_ASSERT_FAILED # Discontinue execution of script
+  fi 
+} 

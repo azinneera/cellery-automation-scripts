@@ -17,4 +17,13 @@
 #  under the License.
 
 # Creates a k8s cluster with minikube for installing Cellery
+set -e
+
+sudo minikube start --vm-driver=none 
+#--cpus=8 --memory=16384
+sudo chown -R $USER $HOME/.minikube
+sudo chown -R $USER $HOME/.kube/
+kubectl config use-context minikube
+
+
 
