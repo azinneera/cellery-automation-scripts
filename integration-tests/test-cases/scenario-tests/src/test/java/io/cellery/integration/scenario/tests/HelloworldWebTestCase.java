@@ -46,13 +46,13 @@ public class HelloworldWebTestCase extends BaseTestCase {
         webDriver = new ChromeDriver(new ChromeOptions().setHeadless(true));
     }
 
-    @Test
+    @Test(groups = "build")
     public void build() throws Exception {
         build("hello-world.bal", Constants.TEST_CELL_ORG_NAME, imageName, version,
                 Paths.get(CELLERY_SCENARIO_TEST_ROOT, "hello-world-web").toFile().getAbsolutePath());
     }
 
-    @Test
+    @Test(dependsOnGroups = "build")
     public void run() throws Exception {
         run(Constants.TEST_CELL_ORG_NAME, imageName, version, helloWorldInstance, 120);
     }
