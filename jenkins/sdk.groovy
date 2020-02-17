@@ -94,7 +94,7 @@ stage ('Build intallers') {
              sh """
               PATH=/usr/local/aws/bin:/Library/Ballerina/ballerina-0.991.0/bin:/usr/local/nodejs/bin:\${PATH}
               set +x
-              security unlock -p 1234 ~/Library/Keychains/login.keychain
+              security unlock -p <password> ~/Library/Keychains/login.keychain
               set -x
               go version
               VERSION=${VERSION} INSTALLER_VERSION=${INST_VERSION} OBSERVABILITY_BUILD=${OBSERVABILITY_BUILD} DISTRIBUTION_VERSION=${DISTRIBUTION_VERSION} DISTRIBUTION_ARCHIVE_VERSION=${DISTRIBUTION_ARCHIVE_VERSION} make build-mac-installer
